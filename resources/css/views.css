@@ -1,0 +1,370 @@
+/* ==========================================================================
+   VIEWS — gaya khusus halaman tertentu
+   ========================================================================== */
+
+@layer components {
+    /* Kartu statistik dashboard sekarang memakai komponen
+       `resources/views/components/stat-card.blade.php`: satu sumber untuk
+       angka, keterangan periode, dan tautan tindak lanjut. Kelas `.stat-card`
+       dan `.stat-icon` yang lama dihapus supaya tidak ada dua cara
+       menggambar hal yang sama. */
+
+    /* ------- Daftar dokumen (PRD §11) -------
+       Informasi ditampilkan sebagai baris dokumen yang padat informasi,
+       bukan grid kartu besar. Mendukung pemindaian cepat. */
+    .doc-list {
+        @apply divide-y divide-ink-100 overflow-hidden rounded-xl border border-ink-200 bg-white;
+    }
+
+    .doc-row {
+        @apply flex items-start gap-4 px-4 py-4 transition-colors duration-150 hover:bg-ink-50/60 sm:px-5;
+    }
+
+    .doc-row-icon {
+        @apply mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg
+               bg-ink-100 text-ink-500 ring-1 ring-inset ring-ink-200/70;
+    }
+
+    .doc-row-title {
+        @apply text-[15px] font-semibold leading-snug text-ink-900;
+    }
+
+    .doc-row-meta {
+        @apply mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-500;
+    }
+
+    .doc-row-excerpt {
+        @apply mt-1.5 line-clamp-2 text-sm leading-relaxed text-ink-600;
+    }
+
+    /* Baris tabel data (Admin/QA) */
+    .data-row {
+        @apply border-b border-ink-100 transition-colors hover:bg-ink-50/60;
+    }
+
+    /* ------- Table of Contents (PRD §12) ------- */
+    .toc-list {
+        @apply space-y-0.5 border-l border-ink-200;
+    }
+
+    .toc-link {
+        @apply -ml-px block border-l-2 border-transparent py-1.5 pl-3 pr-2 text-sm
+               leading-snug text-ink-500 transition-colors hover:border-ink-300 hover:text-ink-900;
+    }
+
+    .toc-link-active {
+        @apply border-brand-600 font-medium text-brand-700 hover:border-brand-600 hover:text-brand-700;
+    }
+
+    /* ------- Isi dokumen (PRD §12) ------- */
+    .prose-doc {
+        @apply text-[15px] leading-7 text-ink-700;
+    }
+
+    .prose-doc h2 {
+        @apply mt-8 scroll-mt-24 text-lg font-semibold text-ink-900;
+    }
+
+    .prose-doc h3 {
+        @apply mt-6 scroll-mt-24 text-base font-semibold text-ink-900;
+    }
+
+    .prose-doc p {
+        @apply mt-3;
+    }
+
+    .prose-doc ul,
+    .prose-doc ol {
+        @apply mt-3 space-y-1.5 pl-5;
+    }
+
+    .prose-doc ul {
+        @apply list-disc;
+    }
+
+    .prose-doc ol {
+        @apply list-decimal;
+    }
+
+    .prose-doc a {
+        @apply link;
+    }
+
+    .prose-doc strong {
+        @apply font-semibold text-ink-900;
+    }
+
+    /* ------- Kartu informasi (dipakai kartu kategori & item terkait) ------- */
+    .info-card {
+        @apply card flex h-full flex-col;
+    }
+
+    .info-card-thumb {
+        @apply relative flex h-24 items-center justify-center border-b border-ink-100 bg-ink-50 text-ink-400;
+    }
+
+    /* Kartu kategori */
+    .category-card {
+        @apply card card-hover flex flex-col gap-3 p-5;
+    }
+
+    .category-icon {
+        @apply flex h-11 w-11 items-center justify-center rounded-xl bg-ink-100 text-lg text-ink-600
+               ring-1 ring-inset ring-ink-200/70;
+        background-image: linear-gradient(to bottom right, color-mix(in srgb, var(--cat-color, #3b82f6) 12%, transparent), transparent);
+    }
+
+    /* PDF viewer / dokumen */
+    .doc-viewer {
+        @apply w-full overflow-hidden rounded-2xl border border-ink-200 bg-ink-100 shadow-inner;
+        aspect-ratio: 1 / 1.414;
+    }
+
+    /* Empty state */
+    .empty-state {
+        @apply flex flex-col items-center justify-center gap-3 rounded-2xl
+               border border-dashed border-ink-300 bg-white/60 px-6 py-16 text-center;
+    }
+
+    /* ------- Chat (PRD Chat §9) -------
+       Area pesan yang dapat digulir. Tingginya dibatasi di view (max-h),
+       di sini hanya gaya scrollbar-nya: tipis dan tenang, sama seperti
+       sidebar, agar tidak menarik perhatian ke dirinya sendiri. */
+    .chat-scroll {
+        scrollbar-width: thin;
+        scrollbar-color: rgb(203 213 225) transparent;
+    }
+
+    .chat-scroll::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .chat-scroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .chat-scroll::-webkit-scrollbar-thumb {
+        background: rgb(203 213 225);
+        border-radius: 9999px;
+    }
+
+    .chat-scroll::-webkit-scrollbar-thumb:hover {
+        background: rgb(148 163 184);
+    }
+
+    /* ------- Gelembung pesan (A1, A3, A8) -------
+       Pesan sendiri menempel di kanan dengan gelembung warna merek,
+       pesan orang lain di kiri dengan geleombung netral. Pesan berurutan
+       dari pengirim yang sama dikelompokkan: avatar dan nama hanya muncul
+       di pesan pertama dari rentetan itu. */
+    .chat-message {
+        @apply flex gap-3 px-4 py-1.5 sm:px-5;
+    }
+
+    .chat-message--continued {
+        @apply pt-0.5;
+    }
+
+    .chat-message--mine {
+        @apply flex-row-reverse;
+    }
+
+    /* AGENT: asisten | 2026-10-01 | ganti ring-dashed -> border-dashed | ring-dashed bukan utility Tailwind, membuat npm run build gagal & seluruh CSS chat hilang */
+    .chat-message--draft .chat-bubble {
+        @apply border border-dashed border-brand-300 opacity-70;
+    }
+
+    .chat-avatar {
+        @apply mt-0.5 h-8 w-8 shrink-0;
+    }
+
+    .chat-bubble-col {
+        @apply flex min-w-0 max-w-[85%] flex-col gap-1 sm:max-w-[75%];
+    }
+
+    .chat-bubble-col--mine {
+        @apply items-end;
+    }
+
+    .chat-sender {
+        @apply pl-1 text-xs font-semibold text-ink-700;
+    }
+
+    .chat-bubble {
+        @apply rounded-2xl px-3.5 py-2 text-sm shadow-sm;
+    }
+
+    .chat-bubble-them {
+        @apply rounded-tl-sm bg-white text-ink-800 ring-1 ring-ink-200;
+    }
+
+    .chat-bubble-mine {
+        @apply rounded-tr-sm bg-brand-50 text-ink-900 ring-1 ring-brand-200;
+    }
+
+    .chat-bubble-body {
+        @apply whitespace-pre-line break-words;
+    }
+
+    .chat-time {
+        @apply px-1 text-[11px] text-ink-400;
+    }
+
+    /* Deretan meta di bawah gelembung: waktu, penanda sunting/semat, tautan
+       utas (PRD §15). */
+    .chat-meta {
+        @apply flex flex-wrap items-center gap-2 px-1;
+    }
+
+    .chat-flag {
+        @apply inline-flex items-center gap-1 text-[11px] text-ink-400;
+    }
+
+    .chat-flag--pinned {
+        @apply text-brand-600;
+    }
+
+    .chat-thread-link {
+        @apply text-[11px] font-medium text-brand-700 hover:underline;
+    }
+
+    /* Kutipan pesan induk pada sebuah balasan (PRD §15). */
+    .chat-reply-quote {
+        @apply flex max-w-full flex-col gap-0.5 rounded-lg border-l-2 border-brand-400
+               bg-ink-50 px-2.5 py-1.5 text-left transition-colors hover:bg-ink-100;
+    }
+
+    .chat-reply-quote-author {
+        @apply text-[11px] font-semibold text-brand-700;
+    }
+
+    .chat-reply-quote-body {
+        @apply truncate text-xs text-ink-500;
+    }
+
+    /* Aksi pesan (balas, semat, sunting, hapus). Disembunyikan sampai
+       kursor menyentuh pesan agar riwayat tetap tenang dibaca; tetap
+       muncul saat fokus keyboard (focus-within). */
+    .chat-actions {
+        @apply flex items-center gap-1 opacity-0 transition-opacity;
+    }
+
+    .chat-message:hover .chat-actions,
+    .chat-actions:focus-within {
+        @apply opacity-100;
+    }
+
+    .chat-message--mine .chat-actions {
+        @apply justify-end;
+    }
+
+    .chat-action {
+        @apply inline-flex h-6 w-6 items-center justify-center rounded-md text-ink-400
+               transition-colors hover:bg-ink-100 hover:text-ink-700
+               focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500;
+    }
+
+    .chat-action--active {
+        @apply text-brand-600;
+    }
+
+    .chat-action--danger:hover {
+        @apply bg-red-50 text-red-600;
+    }
+
+    /* Sorot sekilas pesan yang dituju dari bilah sematan. */
+    .chat-message--flash {
+        @apply bg-brand-50;
+        animation: chat-flash 1.2s ease-out;
+    }
+
+    /* Baris sematan pada bilah di atas percakapan. */
+    .chat-pin-item {
+        @apply flex w-full items-baseline gap-2 text-left text-xs hover:underline;
+    }
+
+    .chat-pin-author {
+        @apply shrink-0 font-semibold text-brand-700;
+    }
+
+    .chat-pin-body {
+        @apply truncate text-ink-600;
+    }
+
+    .chat-draft-status {
+        @apply flex items-center gap-1.5 px-1 text-[11px] italic text-ink-400;
+    }
+
+    .chat-attachments {
+        @apply mt-2 flex flex-wrap gap-2;
+    }
+
+    .chat-attachment-image {
+        @apply block overflow-hidden rounded-xl border border-ink-200;
+    }
+
+    .chat-attachment-file {
+        @apply inline-flex items-center gap-2 rounded-xl border border-ink-200 bg-white
+               px-3 py-2 text-sm text-ink-700 transition-colors hover:bg-ink-50;
+    }
+
+    .chat-attachment-name {
+        @apply max-w-[12rem] truncate;
+    }
+
+    .chat-attachment-size {
+        @apply shrink-0 text-xs text-ink-400;
+    }
+
+    /* Pemisah hari (A9): "Hari ini", "Kemarin", atau tanggal. */
+    .chat-day-separator {
+        @apply mt-3 mb-1.5 flex shrink-0 items-center gap-3 px-4 sm:px-5;
+    }
+
+    .chat-day-separator::before,
+    .chat-day-separator::after {
+        @apply h-px flex-1 bg-ink-200;
+        content: "";
+    }
+
+    .chat-day-separator > span {
+        @apply text-xs font-medium text-ink-400;
+    }
+
+    /* Empty state (A10). */
+    .chat-empty {
+        @apply m-auto flex max-w-sm flex-col items-center gap-3 px-6 py-12 text-center;
+    }
+
+    .chat-empty-icon {
+        @apply flex h-14 w-14 items-center justify-center rounded-full bg-brand-50 text-brand-600;
+    }
+
+    .chat-empty-title {
+        @apply text-base font-semibold text-ink-800;
+    }
+
+    .chat-empty-text {
+        @apply text-sm text-ink-500;
+    }
+
+    /* Tombol mengambang "Pesan baru" (A2). */
+    .chat-new-button {
+        @apply absolute bottom-3 left-1/2 z-10 -translate-x-1/2
+               inline-flex items-center gap-2 rounded-full border border-brand-200
+               bg-white px-4 py-2 text-sm font-medium text-brand-700 shadow-md
+               transition-all hover:bg-brand-50 focus:outline-none focus-visible:ring-2
+               focus-visible:ring-brand-500;
+    }
+}
+
+/* Kedip sorot saat melompat ke pesan yang disematkan. Diletakkan di luar
+   @layer agar tidak ikut ter-purge bersama utilitas yang tidak terpakai. */
+@keyframes chat-flash {
+    0% {
+        background-color: rgb(204 251 241);
+    }
+    100% {
+        background-color: transparent;
+    }
+}

@@ -1,0 +1,3 @@
+@extends('layouts.app')
+@section('title', 'Ubah Soal')
+@section('content')<h1 class="mb-4 text-xl font-semibold">Ubah Soal Bank</h1><p class="mb-4 text-sm text-ink-500">Perubahan hanya berlaku pada versi quiz yang akan dibuat berikutnya.</p><form method="POST" action="{{ route('qa.quiz.questions.update', $question) }}" class="card card-body space-y-5">@csrf @method('PUT') @include('qa.quiz.questions._form')<div class="flex justify-end gap-2"><a class="btn-secondary" href="{{ route('qa.quiz.questions.index') }}">Batal</a><button class="btn-primary">Simpan Perubahan</button></div></form>@endsection

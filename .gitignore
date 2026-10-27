@@ -1,0 +1,133 @@
+# =====================================================================
+# .gitignore — Pusat Informasi (Laravel 11)
+#
+# Aturan: berkas RAHASIA/lokal dan berkas yang TIDAK DIPAKAI server tidak
+# ikut ke GitHub. Folder yang harus tetap ada di repo dijaga oleh
+# .gitignore kecil di dalamnya (bootstrap/cache, database, storage/*).
+# =====================================================================
+
+# --- Rahasia & konfigurasi lokal (jangan pernah diunggah) ---
+.env
+.env.*
+!.env.example
+.env.backup
+.env.production
+/auth.json
+.npmrc
+.yarnrc
+.yarnrc.yml
+*.pem
+*.p12
+*.pfx
+id_rsa*
+/storage/*.key
+Homestead.json
+Homestead.yaml
+
+# --- Dependensi & artefak build (dibuat ulang oleh composer/npm) ---
+/node_modules
+/vendor
+/public/build
+/public/hot
+/public/storage
+
+# --- Cache & hasil uji ---
+/.phpunit.cache
+.phpunit.result.cache
+/.php-cs-fixer.cache
+/.php-cs-fixer.php
+/.phpactor.json
+/storage/debugbar
+/storage/pail
+
+# --- Data runtime di storage ---
+# Isi storage/app, storage/framework, dan storage/logs sudah dibuang oleh
+# .gitignore di tiap subfolder (mis. storage/app/.gitignore berisi "*"),
+# sehingga dump/chat/informasi/avatar/kpi hasil pemakaian tidak ikut.
+
+# --- Log & jejak debug ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+php_errors.log
+
+# Arsip/backup lokal: salinan berkas sebelum perbaikan, tidak dipakai aplikasi.
+# AGENT: asisten | 2026-10-20 | tambah pola backup & skrip sekali pakai | persiapan push GitHub
+/.stripped-backup
+*.bak
+*.bak.*
+*.backup
+*.backup.*
+*.orig
+*.rej
+*.tmp
+*.temp
+*.old
+*.save
+*.copy
+*~
+*.swp
+*.swo
+
+# Skrip sekali pakai (ekstraksi Excel KPI), bukan bagian aplikasi.
+/kpi-extract.php
+/kpi-media.php
+
+# Data contoh klien: hanya referensi di mesin lokal, tidak dipakai server.
+# Data master KPI sudah tertanam di database/seeders/ScorecardSeeder.php dan
+# database menjadi sumber kebenaran (PRD §3.1).
+/contoh-excel
+
+# Mockup desain fase UI/UX (tema A/B/C) + screenshot pratinjau: artefak yang
+# sudah diterapkan ke aplikasi, tidak dipakai runtime, dan tidak boleh tersaji
+# publik karena berada di dalam public/.
+/public/preview
+
+# --- IDE / editor ---
+/.idea
+/.vscode
+/.fleet
+/.zed
+/.history
+/.continue
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+
+# --- Dokumentasi internal (catatan kerja; tidak dipakai server) ---
+# progres.md, folder prd/ & docs/, dan berkas prompt PRD hanyalah catatan kerja
+# internal sehingga tidak ikut ke GitHub. Berkas tetap ada di mesin lokal.
+/progres.md
+/prd
+/docs
+/PRD_Prompt_Redesign_Master_Informasi_FSB.md
+
+# Semua berkas Markdown (.md) di lokasi mana pun juga catatan untuk manusia dan
+# tidak dipakai aplikasi, jadi ikut dikeluarkan — termasuk README.md bawaan
+# Laravel. Fitur "Ekspor .md" di modul Catatan tetap berjalan karena Markdown
+# dibentuk di memori saat unduhan, bukan dibaca dari berkas repo.
+# Bila ingin README diikutsertakan kembali: git add -f README.md
+*.md
+
+# --- Pengujian (hanya alat development, tidak dibutuhkan server) ---
+# Suite PHPUnit beserta konfigurasinya tidak dipakai aplikasi saat berjalan,
+# jadi tidak ikut ke GitHub. Berkasnya tetap ada di mesin lokal.
+# Pemulihan bila perlu: git add -f tests phpunit.xml
+/tests
+/phpunit.xml
+
+# Sisa OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# AGENT: asisten | 2026-10-27 | audit semua .gitignore: tambah pola rahasia
+# (varians .env, auth.json, .npmrc, kunci privat/pem), cache & DX, debug
+# storage, log, cadangan tambahan, aset lokal yang tidak dipakai server
+# (contoh-excel, public/preview), seluruh dokumentasi internal
+# (progres.md, prd/, docs/, PRD_Prompt_*.md, dan semua berkas *.md termasuk
+# README.md), serta suite pengujian (/tests + /phpunit.xml) | persiapan push
+# GitHub

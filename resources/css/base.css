@@ -1,0 +1,55 @@
+/* ==========================================================================
+   BASE — reset ringan, tipografi, scrollbar, seleksi
+   ========================================================================== */
+
+@layer base {
+    html {
+        -webkit-text-size-adjust: 100%;
+        scroll-behavior: smooth;
+    }
+
+    /* PRD §10 — hindari gradient background. Latar datar agar terasa seperti
+       enterprise information system, bukan landing page marketing. */
+    body {
+        @apply bg-ink-50 text-ink-700 font-sans antialiased;
+    }
+
+    /* Judul seragam */
+    h1, h2, h3, h4, h5, h6 {
+        @apply text-ink-900 font-semibold tracking-tight;
+    }
+
+    /* Angka tabular agar kolom statistik/dokumen rapi */
+    .tabular-nums,
+    table,
+    time {
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* Fokus yang jelas untuk aksesibilitas */
+    :focus-visible {
+        @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white;
+    }
+
+    ::selection {
+        @apply bg-brand-600 text-white;
+    }
+}
+
+/* Scrollbar halus (WebKit) */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-ink-300 rounded-full border-2 border-solid border-transparent bg-clip-content;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-ink-400;
+}

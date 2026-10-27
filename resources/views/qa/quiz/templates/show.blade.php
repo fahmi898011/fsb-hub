@@ -1,0 +1,11 @@
+@extends('layouts.app')
+@section('title', $template->name)
+@section('content')
+    <div class="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h1 class="text-xl font-semibold text-ink-900">{{ $template->name }}</h1><p class="text-sm text-ink-500">{{ $template->division?->name ?? 'Semua divisi' }} · {{ $template->question_count }} soal · Lulus {{ number_format($template->passing_score, 2) }}%</p></div><div class="flex gap-2">@can('update', $template)<a class="btn-secondary" href="{{ route('qa.quiz.templates.edit', $template) }}">Ubah</a><a class="btn-primary" href="{{ route('qa.quiz.versions.create', $template) }}">Buat Versi</a>@endcan</div></div>
+    @include('qa.quiz._nav')
+    @if ($template->description)<div class="card card-body mb-5 text-sm text-ink-600">{{ $template->description }}</div>@endif
+    <div class="card overflow-hidden"><div class="flex items-center justify-between border-b border-ink-100 px-5 py-3"><h2 class="text-sm font-semibold">Riwayat Versi</h2><span class="badge-gray">{{ $template->status }}</span></div><div class="divide-y divide-ink-100">
+        @forelse ($template->versions as $version)<a href="{{ route('qa.quiz.versions.show', $version) }}" class="flex flex-wrap items-center justify-between gap-3 px-5 py-4 hover:bg-ink-50"><div><p class="font-medium text-ink-800">Versi {{ $version->version }} · {{ $version->question_count }} soal</p><p class="text-xs text-ink-500">Berlaku {{ $version->effective_from?->format('d/m/Y') ?? '—' }} · Lulus {{ number_format($version->passing_score, 2) }}%</p></div><x-status-badge :status="$version->status" /></a>@empty<p class="px-5 py-8 text-center text-sm text-ink-400">Belum ada versi. Buat versi untuk memilih dan membekukan soal.</p>@endforelse
+    </div></div>
+    @can('delete', $template)<form method="POST" action="{{ route('qa.quiz.templates.destroy', $template) }}" class="mt-5" onsubmit="return confirm('Hapus template ini?')">@csrf @method('DELETE')<button class="btn-danger">Hapus Template</button></form>@endcan
+@endsection

@@ -1,0 +1,11 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+/* Bagian UI aplikasi (dipisah agar mudah dikelola) */
+@import './base.css';
+@import './components.css';
+@import './layout.css';
+@import './views.css';
+
+@import 'tailwindcss/utilities';
+@import './utilities.css';

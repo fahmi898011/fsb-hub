@@ -1,0 +1,3 @@
+@extends('layouts.app')
+@section('title', 'Ubah Kategori Soal')
+@section('content')<h1 class="mb-4 text-xl font-semibold">Ubah Kategori Soal</h1><form method="POST" action="{{ route('qa.quiz.categories.update', $category) }}" class="card card-body max-w-2xl space-y-5">@csrf @method('PUT') @include('qa.quiz.categories._form')<div class="flex justify-end gap-2"><a class="btn-secondary" href="{{ route('qa.quiz.categories.index') }}">Batal</a><button class="btn-primary">Simpan Perubahan</button></div></form>@endsection

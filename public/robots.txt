@@ -1,0 +1,5 @@
+# Aplikasi internal (seluruh halaman butuh login). Jangan diindeks mesin
+# pencari. Bila suatu saat memang ingin dipublikasikan, ubah menjadi
+# "Disallow:" (tanpa garis miring).
+User-agent: *
+Disallow: /

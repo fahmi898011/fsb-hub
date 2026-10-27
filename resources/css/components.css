@@ -1,0 +1,112 @@
+/* ==========================================================================
+   COMPONENTS — potongan UI yang dipakai berulang
+   ========================================================================== */
+
+@layer components {
+    /* ------- Tombol ------- */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5
+               text-sm font-semibold transition-all duration-150
+               focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500
+               focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+    }
+
+    /* PRD §10 — tanpa glow. Interaksi jelas tapi tenang. */
+    .btn-primary {
+        @apply btn bg-brand-600 text-white shadow-sm
+               hover:bg-brand-700 active:translate-y-px active:bg-brand-800;
+    }
+
+    .btn-secondary {
+        @apply btn border border-ink-200 bg-white text-ink-700 shadow-sm
+               hover:border-ink-300 hover:bg-ink-50 active:bg-ink-100;
+    }
+
+    .btn-ghost {
+        @apply btn text-ink-600 hover:bg-ink-100 hover:text-ink-900;
+    }
+
+    .btn-danger {
+        @apply btn bg-red-600 text-white shadow-sm hover:bg-red-700 active:bg-red-800;
+    }
+
+    .btn-sm {
+        @apply gap-1.5 rounded-lg px-3 py-1.5 text-xs;
+    }
+
+    .btn-icon {
+        @apply inline-flex h-9 w-9 items-center justify-center rounded-lg text-ink-500
+               transition-colors hover:bg-ink-100 hover:text-ink-900;
+    }
+
+    /* ------- Kartu -------
+       PRD §10/§11 — radius lebih kecil dan tanpa efek "mengambang".
+       Hover hanya mengubah border + elevasi tipis agar terasa seperti
+       baris dokumen, bukan kartu marketing. */
+    .card {
+        @apply rounded-xl border border-ink-200/80 bg-white shadow-card;
+    }
+
+    .card-hover {
+        @apply transition-colors duration-150 hover:border-ink-300 hover:bg-ink-50/40;
+    }
+
+    .card-body {
+        @apply p-5 sm:p-6;
+    }
+
+    .card-header {
+        @apply flex items-center justify-between gap-3 border-b border-ink-100 px-5 py-4 sm:px-6;
+    }
+
+    /* ------- Badge ------- */
+    .badge {
+        @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    }
+
+    .badge-brand {
+        @apply badge bg-brand-50 text-brand-700 ring-1 ring-inset ring-brand-100;
+    }
+
+    .badge-gray {
+        @apply badge bg-ink-100 text-ink-600 ring-1 ring-inset ring-ink-200;
+    }
+
+    .badge-green {
+        @apply badge bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-100;
+    }
+
+    .badge-amber {
+        @apply badge bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-100;
+    }
+
+    .badge-red {
+        @apply badge bg-red-50 text-red-700 ring-1 ring-inset ring-red-100;
+    }
+
+    /* ------- Form ------- */
+    .form-input {
+        @apply block w-full rounded-xl border-ink-200 bg-white text-sm text-ink-900
+               placeholder-ink-400 shadow-sm transition
+               focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30;
+    }
+
+    .form-label {
+        @apply mb-1.5 block text-sm font-medium text-ink-700;
+    }
+
+    /* ------- Tautan ------- */
+    .link {
+        @apply font-medium text-brand-600 transition-colors hover:text-brand-700 hover:underline;
+    }
+
+    /* ------- Judul seksi ------- */
+    .section-title {
+        @apply text-base font-semibold text-ink-900;
+    }
+
+    /* ------- Divider ------- */
+    .divider {
+        @apply border-t border-ink-200;
+    }
+}

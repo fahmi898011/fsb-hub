@@ -1,0 +1,3 @@
+@extends('layouts.app')
+@section('title', 'Tambah Soal')
+@section('content')<h1 class="mb-4 text-xl font-semibold">Tambah Soal ke Bank</h1><form method="POST" action="{{ route('qa.quiz.questions.store') }}" class="card card-body space-y-5">@csrf @include('qa.quiz.questions._form')<div class="flex justify-end gap-2"><a class="btn-secondary" href="{{ route('qa.quiz.questions.index') }}">Batal</a><button class="btn-primary">Simpan Soal</button></div></form>@endsection

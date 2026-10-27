@@ -1,0 +1,71 @@
+/* ==========================================================================
+   LAYOUT — sidebar, topbar, konten utama (mobile-first)
+
+   AGENT: asisten | 2026-10-06 | topbar putih solid (hapus blur) untuk Tema A | UI/UX
+   ========================================================================== */
+
+@layer components {
+    /* Konten utama: full width di mobile, digeser saat sidebar tampil di desktop */
+    .app-main {
+        @apply min-h-screen transition-[padding] duration-300 ease-out;
+    }
+
+    @screen lg {
+        .app-main {
+            @apply pl-64;
+        }
+
+        .app-shell.is-collapsed .app-main {
+            @apply pl-[4.5rem];
+        }
+    }
+
+    /* Sidebar */
+    .sidebar-link {
+        @apply relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium
+               text-ink-300 transition-all duration-150
+               hover:bg-white/[0.07] hover:text-white;
+    }
+
+    .sidebar-link-active {
+        @apply bg-brand-600 text-white hover:bg-brand-600;
+    }
+
+    .sidebar-link-active::before {
+        content: '';
+        @apply absolute -left-3 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-white/90;
+    }
+
+    .sidebar-section {
+        @apply px-3 pb-1.5 pt-5 text-[11px] font-semibold uppercase tracking-wider text-ink-500;
+    }
+}
+
+/* Topbar sticky.
+   Latar SOLID, bukan putih transparan + backdrop-blur. Efek kaca (glass)
+   membuat teks di bawahnya tampak kabur dan menurunkan keterbacaan pada
+   tabel padat; ia juga salah satu penanda visual "AI slop" (PRD Frontend §10). */
+.app-topbar {
+    @apply sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-ink-200
+           bg-white px-4 sm:px-6;
+}
+
+/* Area konten */
+.app-content {
+    @apply mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 sm:py-8;
+}
+
+/* Sembunyikan scrollbar sidebar tapi tetap bisa scroll */
+.sidebar-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 9999px;
+}

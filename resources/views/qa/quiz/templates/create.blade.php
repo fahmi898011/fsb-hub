@@ -1,0 +1,3 @@
+@extends('layouts.app')
+@section('title', 'Buat Template Quiz')
+@section('content')<div class="mb-4"><h1 class="text-xl font-semibold">Buat Template Quiz</h1><p class="text-sm text-ink-500">Versi quiz dan susunan soal dibuat sesudah template tersimpan.</p></div><form method="POST" action="{{ route('qa.quiz.templates.store') }}" class="card card-body space-y-5">@csrf @include('qa.quiz.templates._form')<div class="flex justify-end gap-2"><a class="btn-secondary" href="{{ route('qa.quiz.templates.index') }}">Batal</a><button class="btn-primary">Simpan Template</button></div></form>@endsection
